@@ -1,2 +1,6 @@
 # supershell
-work in progress minimal quickshell
+WIP minimal quickshell setup
+
+current todo list:
+- install script
+- system tray like on kde
