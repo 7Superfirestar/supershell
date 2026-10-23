@@ -43,7 +43,8 @@ PanelWindow { // root
     property int fontSize: 11
 
     property int cpuUsage: 0
-    property int memUsage: 0
+    property double memUsage: 0
+    property double memCap: 0
 
     property var lastCpuIdle: 0
     property var lastCpuTotal: 0
@@ -336,7 +337,8 @@ PanelWindow { // root
                     var parts = data.trim().split(/\s+/)
                     var total = parseInt(parts[1]) || 1
                     var used = parseInt(parts[2]) || 0
-                    memUsage = Math.round(100*used/total)
+                    memUsage = Math.round(Math.round(used) /10000) / 100
+                    memCap = Math.round(Math.round(total) /100000) / 10
                 }
             }
             Component.onCompleted: running = true
@@ -351,7 +353,6 @@ PanelWindow { // root
             }
             Component.onCompleted: running = true
         }
-          //todo: put some shapes and etc stuff here
         Text {
             text: "|"
             color: root.colFg
@@ -390,7 +391,7 @@ PanelWindow { // root
             font { family: root.fontFamily; pixelSize: root.fontSize; bold: true }
         }
         Text {
-            text: " " + memUsage + "%"
+            text: " " + memUsage + "GB" + "/" + memCap + "GB" 
             color: root.memLabelColor
             font { family : root.fontFamily; pixelSize: root.fontSize; bold: true }
             MouseArea {
